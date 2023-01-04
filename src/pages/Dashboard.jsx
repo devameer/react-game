@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
-import Game from "../sections/Game";
-import LastPlayed from "../sections/LastPlayed";
+import Game from "../components/Game";
+import LastPlayed from "../components/LastPlayed";
+import SettingsIcon from "../components/icons/SettingsIcon";
+import LikeIcon from "../components/icons/LikeIcon";
+import PuzzleIcon from "../components/icons/PuzzleIcon";
+
 
 import newGame from "../assets/images/newgame.svg";
-import like from "../assets/images/like.png";
-import Settings from "../assets/images/Settings.png";
-import Puzzle from "../assets/images/Puzzle.png";
 import light from "../assets/images/light.png";
 import user_img from "../assets/images/jeny.png";
 import GODOFWAR2 from "../assets/images/GODOFWAR2.png";
@@ -37,13 +38,13 @@ const Dashboard = () => {
 
         <div className="icons">
           <a href="/#">
-            <img src={like} className="like" alt="like" />
+            <LikeIcon />
           </a>
           <a href="/#">
-            <img src={Settings} className="setting" alt="setting" />
+            <SettingsIcon />
           </a>
           <a href="/#">
-            <img src={Puzzle} className="comment" alt="comment" />
+            <PuzzleIcon />
           </a>
         </div>
 

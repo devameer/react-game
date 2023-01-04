@@ -1,4 +1,3 @@
-import "./style.css";
 export default function LastPlayed(props) {
   return (
     <div className="play">

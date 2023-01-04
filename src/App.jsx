@@ -1,5 +1,4 @@
-import Auth from "./pages/Auth";
-import { Link, useRoutes } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import routesList from "./include/routes";
 function App() {
   let routes = useRoutes(routesList);
