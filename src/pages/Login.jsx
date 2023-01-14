@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import loginlogo from "../assets/images/loginlogo.png";
 import joystick from "../assets/images/joystick.png";
@@ -8,34 +8,56 @@ import github from "../assets/images/github.png";
 import twitter from "../assets/images/twitter.svg";
 import linked from "../assets/images/linked.png";
 import Button from "../components/Button";
-
+import axios from "axios";
 import * as yup from "yup";
 
-const Login = () => {
+const Login = (props) => {
   const navigateTo = useNavigate();
   const [formData, setFormData] = React.useState({});
 
   const [errors, setErrors] = React.useState([]);
 
   const schema = yup.object().shape({
-    email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    username: yup.string().required(),
+    password: yup.string().min(3).required(),
   });
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     schema
       .validate(
         {
-          email: formData.email,
+          username: formData.username,
           password: formData.password,
         },
         { abortEarly: false }
       )
-      .then(() => {
-        navigateTo("/dashboard");
+      .then(async ({ username, password }) => {
+        try {
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_URL}/users/login`,
+            {
+              email: username,
+              password: password,
+            }
+          );
+          if (response) {
+            const { email, isAdmin, name, token } = response.data;
+            localStorage.setItem("token", token);
+            localStorage.setItem(
+              "user",
+              JSON.stringify({ email, isAdmin, name })
+            );
+            props.login({ email, isAdmin, name });
+            // navigateTo("/dashboard");
+          }
+        } catch (error) {
+          console.log(error);
+          setErrors([error.response.data.message]);
+        }
       })
+
       .catch(function (err) {
-        setErrors(err.errors);
+        setErrors(err.errors || [err.message]);
       });
   };
 
@@ -82,14 +104,14 @@ const Login = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Your email</label>
+          <label htmlFor="username">Your username</label>
           <input
-            id="email"
-            type="email"
+            id="username"
+            type="username"
             className="form-control"
-            placeholder="Write your email"
+            placeholder="Write your username"
             onChange={(e) => handleChangeInput(e)}
-            value={formData.email}
+            value={formData.username}
           />
         </div>
 
@@ -110,7 +132,7 @@ const Login = () => {
           Don’t have an account?
           <Link to="/register">Register</Link>
         </div>
-        {errors.length
+        {errors?.length
           ? errors.map((error) => (
               <p className="error" key={error}>
                 {error}

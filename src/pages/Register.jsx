@@ -3,7 +3,7 @@ import gamelogo from "../assets/images/gamelogo.png";
 import bg from "../assets/images/bg.png";
 import Button from "../components/Button";
 import * as yup from "yup";
-
+import axios from "axios";
 export default class Register extends Component {
   state = {
     name: "",
@@ -20,11 +20,11 @@ export default class Register extends Component {
     email: yup.string().email().required(),
     password: yup
       .string()
-      .min(8)
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number"
-      )
+      .min(4)
+      // .matches(
+      //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/,
+      //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number"
+      // )
       .required(),
     RePassword: yup
       .string()
@@ -53,6 +53,31 @@ export default class Register extends Component {
         },
         { abortEarly: false }
       )
+      .then(async ({ name, email, password }) => {
+        try {
+          const response = await axios.post(
+            `${import.meta.env.VITE_API_URL}/users/signup`,
+            {
+              name,
+              email,
+              password,
+            }
+          );
+          if (response) {
+            const { email, isAdmin, name, token } = response.data;
+            localStorage.setItem("token", token);
+            localStorage.setItem(
+              "user",
+              JSON.stringify({ email, isAdmin, name })
+            );
+            props.login();
+            // navigateTo("/dashboard");
+          }
+        } catch (error) {
+          console.log(error);
+          setErrors([error.response.data.message]);
+        }
+      })
       .catch(function (err) {
         console.log(err.errors);
         self.setState({ errors: err.errors });
@@ -95,7 +120,6 @@ export default class Register extends Component {
               placeholder="Enter Your name"
               onChange={this.handleChangeInput}
               value={this.state.name}
-              
             />
           </div>
           <div className="form-group">
@@ -107,7 +131,6 @@ export default class Register extends Component {
               placeholder="Enter email address"
               onChange={this.handleChangeInput}
               value={this.state.email}
-              
             />
           </div>
           <div className="form-group">
@@ -121,7 +144,6 @@ export default class Register extends Component {
               value={this.state.password}
               onKeyUp={this.passwordStrength}
               autoComplete="off"
-              
             />
             {this.state.message && (
               <div

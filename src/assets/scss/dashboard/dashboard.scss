@@ -32,21 +32,28 @@
   box-shadow: inset 2px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 38px;
 }
-
-.user {
+.dashboard-navbar {
   position: absolute;
   width: 300px;
   left: 71vw;
   top: 20px;
-  font-size: 32px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
   text-align: right;
-}
-
-.user_img {
-  position: absolute;
-  left: 92vw;
-  top: 22px;
-  width: 80px;
+  .user {
+    font-size: 20px;
+  }
+  .email {
+    font-size: 16px;
+  }
+  a{
+    color: rgb(51, 142, 226);
+  }
+  img {
+    height: 55px;
+    width: 55px;
+  }
 }
 
 .games {

@@ -1,0 +1,105 @@
+.users_details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.users_details h3 {
+  font-size: 32px;
+  font-family: "Arial";
+  text-align: center;
+}
+
+.details {
+  text-align: left;
+  color: aliceblue;
+  list-style: none;
+  line-height: 40px;
+  background-color: #667;
+  border-radius: 20px;
+  padding: 25px;
+  width: 350px;
+  margin: 20px 0;
+}
+
+.details div {
+  margin-bottom: 10px;
+}
+
+.details div:last-child {
+  margin-bottom: 0;
+}
+
+.loading {
+  font-size: 20px;
+  text-align: center;
+}
+
+.all_users {
+  padding: 30px 60px;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.users_list {
+  margin: 0;
+  padding: 0;
+}
+
+.user_title {
+  text-align: center;
+  font-family: "Arial";
+  font-size: 32px;
+}
+.user_card {
+  background-color: #667;
+  border-radius: 20px;
+  padding: 20px;
+  width: 300px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.user_card:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.user_card p {
+  margin: 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.delete {
+  margin-top: 20px;
+  height: 35px;
+  padding: 10px;
+  color: red;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  visibility: hidden;
+}
+
+.email-link {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.user_card:hover .delete {
+  visibility: visible;
+}
+
+.delete:hover {
+  background-color: red;
+  color: white;
+}
