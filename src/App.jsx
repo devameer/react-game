@@ -14,15 +14,17 @@ class App extends React.Component {
   };
   componentDidMount() {
     const token = localStorage.getItem("token");
+    const user = localStorage.getItem("user");
     if (token) {
       this.setState({ isAuthorized: true });
     }
-    const { isAdmin } = JSON.parse(localStorage.getItem("user"));
-    console.log(isAdmin);
-    if (isAdmin === true) {
-      this.setState({ isAdmin: true });
-    } else {
-      this.setState({ isAdmin: false });
+    if (user) {
+      const { isAdmin } = JSON.parse();
+      if (isAdmin === true) {
+        this.setState({ isAdmin: true });
+      } else {
+        this.setState({ isAdmin: false });
+      }
     }
   }
   login = (user) => {
