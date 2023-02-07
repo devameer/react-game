@@ -5,8 +5,8 @@ import Profile from "./pages/Dashboard";
 import React from "react";
 import Dashboard from "./pages/Dashboard";
 import DashboardHome from "./components/dashboard/Home";
-import UserShow from "./pages/users/Show";
-import UsersList from "./pages/users/List";
+import UserShow from "./pages/Users/Show";
+import UsersList from "./pages/Users/List";
 class App extends React.Component {
   state = {
     isAuthorized: false,
